@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {AccountStorage} from './service/account-storage';
+import {OauthComponent} from './oauth/oauth.component';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
+  constructor(public accountStorage: AccountStorage, public ouath: OauthComponent) {
+  }
+
   title = 'bank-frontend-shop';
 }
