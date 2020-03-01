@@ -1,9 +1,20 @@
 <form>
-  Podaj kartę kredytową:
-  <label>
-    <input type="text" [(ngModel)]="creditCardNumber" [ngModelOptions]="{standalone: true}" (ngModelChange)="authorize()">
-  </label>
-  {{products[0].name}}
+  Uzupełnij dane karty płatniczej
+  <label (change)="authorize()">
+  Numer
+  <input type="text" [(ngModel)]="user.number" [ngModelOptions]="{standalone: true}">
+  CCV
+  <input type="text" [(ngModel)]="user.ccv" [ngModelOptions]="{standalone: true}">
+  Data ważności
+  <input type="text" [(ngModel)]="user.expiryDate" [ngModelOptions]="{standalone: true}">
+  Imię
+  <input type="text" [(ngModel)]="user.firstName" [ngModelOptions]="{standalone: true}">
+  Nazwisko
+  <input type="text" [(ngModel)]="user.lastName" [ngModelOptions]="{standalone: true}">
+</label>
+
+
+    {{products[0].name}}
   <label>
     <input type="checkbox" [(ngModel)]="choiceProducts[0]" [ngModelOptions]="{standalone: true}">
   </label>
@@ -20,5 +31,5 @@
     <input type="checkbox" [(ngModel)]="choiceProducts[3]" [ngModelOptions]="{standalone: true}">
   </label>
   <p>Całość: {{price()}}zł</p>
-  <button [disabled]="creditCardNumber.length != 36" (click)="buy()">Zapłać kartą</button>
+  <button (click)="buy()">Zapłać kartą</button>
 </form>

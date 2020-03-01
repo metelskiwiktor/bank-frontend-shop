@@ -22,9 +22,9 @@ export class OauthComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  login(creditCardNumber: string) {
-    this.user.cardNumber = creditCardNumber;
-    this.httpClientService.login(this.user).subscribe(value => {
+  login(user: Login) {
+    // this.user.number = creditCardNumber;
+    this.httpClientService.login(user).subscribe(value => {
       this.accountStorage.setTokenValue(value);
       this.httpClientService.getAccountDetails().toPromise().catch(reason => {
         alert(reason.error.errorMessage);

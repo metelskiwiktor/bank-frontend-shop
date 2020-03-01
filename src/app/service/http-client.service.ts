@@ -16,13 +16,13 @@ export class HttpClientService {
   }
 
   public createTransaction(transaction: TransactionTransfer) {
-    transaction.client = Client.SHOP_CARD;
+    transaction.client = Client.SHOP;
     const tokenValue = this.accountStorage.getTokenValue();
     return this.httpClient.post('http://localhost:8090/transaction/transfer', transaction, {headers: {tokenValue}}).toPromise();
   }
 
   public login(login: Login) {
-    login.client = Client.SHOP_CARD;
+    login.client = Client.SHOP;
     return this.httpClient.post('http://localhost:8090/oauth/login/credit-card', login, {responseType: 'text'});
   }
 

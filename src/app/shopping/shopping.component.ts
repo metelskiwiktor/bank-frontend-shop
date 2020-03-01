@@ -5,6 +5,7 @@ import {TransactionTransfer} from '../model/TransactionTransfer';
 import {AccountStorage} from '../service/account-storage';
 import {Router} from '@angular/router';
 import {OauthComponent} from '../oauth/oauth.component';
+import {Login} from '../model/Login';
 
 @Component({
   selector: 'app-shopping',
@@ -15,7 +16,7 @@ export class ShoppingComponent implements OnInit {
   products: Product[] = [];
   choiceProducts: boolean[] = [];
   transaction: TransactionTransfer = new TransactionTransfer();
-  creditCardNumber = '';
+  user: Login = new Login();
 
   constructor(private httpClientService: HttpClientService, private accountStorage: AccountStorage, private router: Router,
               private oauth: OauthComponent) {
@@ -44,16 +45,15 @@ export class ShoppingComponent implements OnInit {
   }
 
   authorize() {
-    if (this.creditCardNumber.length === 36) {
-      console.log(this.creditCardNumber);
-      this.oauth.login(this.creditCardNumber);
+    if (this.user.number != null && this.user.firstName != null && this.user.lastName != null && this.user.expiryDate != null && this.user.ccv != null) {
+      this.oauth.login(this.user);
     }
   }
 
   buy() {
     this.transaction.title = 'zakupy biedronka';
     this.transaction.senderAccountNumber = this.accountStorage.getAccountNumber();
-    this.transaction.recipientAccountNumber = 'ecc0e7a2-8ffd-44f6-9045-e2943ddc030e';
+    this.transaction.recipientAccountNumber = '809665883431313381999556';
     this.transaction.amount = this.price();
     this.httpClientService.createTransaction(this.transaction).then(() => {
       alert('Pomyślnie zakupiono produkty za ' + this.price() + 'zł');
